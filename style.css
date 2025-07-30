@@ -63,7 +63,6 @@ video,
 canvas {
   width: 100%;
   max-width: 480px;
-  aspect-ratio: 4 / 3;
   height: auto;
   border-radius: 10px;
   background: black;
