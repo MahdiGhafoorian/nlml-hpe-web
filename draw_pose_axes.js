@@ -54,11 +54,32 @@ export function visualizeAxesOnFace(ctx, landmarks, yaw, pitch, roll, prevCenter
     ctx.beginPath(); ctx.moveTo(tdx, tdy); ctx.lineTo(x3, y3); ctx.stroke();
 
     // Draw pose values
-    ctx.fillStyle = "white";
+    /*
+    ctx.fillStyle = "#00FFFF";
     ctx.font = "16px sans-serif";
     ctx.fillText(`Yaw: ${(-yaw * 180 / Math.PI).toFixed(2)}`, 10, 30);
     ctx.fillText(`Pitch: ${(pitch * 180 / Math.PI).toFixed(2)}`, 10, 60);
     ctx.fillText(`Roll: ${(roll * 180 / Math.PI).toFixed(2)}`, 10, 90);
+    */
+    
+   
+    ctx.font = "16px Roboto, sans-serif";
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = "#00FFFF";  // Bright yellow
+    
+    const texts = [
+        `Yaw: ${(-yaw * 180 / Math.PI).toFixed(2)}`,
+        `Pitch: ${(pitch * 180 / Math.PI).toFixed(2)}`,
+        `Roll: ${(roll * 180 / Math.PI).toFixed(2)}`
+    ];
+    
+    texts.forEach((text, i) => {
+        const y = 30 + i * 30;
+        ctx.strokeText(text, 10, y);  // Outline for contrast
+        ctx.fillText(text, 10, y);    // Fill text
+    });
+    
 
     return [tdx, tdy];
 }
