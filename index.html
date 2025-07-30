@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NLML-HPE: Real-Time Head Pose Estimation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+
+  <!-- ONNX Runtime Web -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+
+  <!-- MediaPipe FaceMesh -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>NLML-HPE: Real-Time Head Pose Estimation</h1>
+    <p>
+      This demo runs entirely in your browser using ONNX Runtime Web. It estimates yaw, pitch, and roll angles
+      from 468 facial landmarks using our custom-trained neural network. All processing is done locally and no data is sent to any server.
+    </p>
+  </header>
+
+  <div class="container">
+    <div class="video-container">
+      <h4>Input</h4>
+      <video id="video" autoplay playsinline muted></video>
+    </div>
+    <div class="video-container">
+      <h4>Output</h4>
+      <canvas id="output" width="640" height="480"></canvas>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Powered by <strong>ONNX Runtime Web</strong> for model inference and <strong>MediaPipe FaceMesh</strong> for facial landmark detection.
+      The model was trained to predict head pose angles (yaw, pitch, roll) from 468 landmarks and converted to ONNX for efficient web deployment.
+    </p>
+    <p>
+      Please use a Chromium-based browser (e.g., Chrome or Edge) for best performance.
+    </p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
