@@ -37,21 +37,25 @@ async function setup() {
 }
 
 async function onResults(results) {
-  console.log("⏱ Frame received");
+  console.log("Frame received");
+  
+  // Fix canvas resolution based on the video stream
+  canvasElement.width = videoElement.videoWidth;
+  canvasElement.height = videoElement.videoHeight;
 
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
   if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-    console.log("😢 No face detected");
+    console.log("No face detected");
     canvasCtx.restore();
     return;
   }
 
-  // ✅ Truncate to first 468 landmarks
+  // Truncate to first 468 landmarks
   const landmarks = results.multiFaceLandmarks[0].slice(0, 468);
-  console.log("🎯 Landmarks extracted");
+  console.log("Landmarks extracted");
 
   // Normalize and flatten landmarks
   const inputVector = normalizeLandmarksIPD(landmarks); // [1404]
@@ -59,7 +63,7 @@ async function onResults(results) {
 
   try {
     const output = await model.run({ input: inputTensor });
-    //console.log("🧠 Raw ONNX output:", output);
+    //console.log("Raw ONNX output:", output);
     const yawRad = output.output.data[0];
     const pitchRad = output.pitch_output.data[0];
     const rollRad = output.roll_output.data[0];
@@ -68,12 +72,12 @@ async function onResults(results) {
     const pitch = pitchRad * (180 / Math.PI);
     const roll = rollRad * (180 / Math.PI);
 
-    console.log("✅ Pose:", { yaw, pitch, roll });
+    console.log("Pose:", { yaw, pitch, roll });
 
     // Draw pose axes
     prevCenter = visualizeAxesOnFace(canvasCtx, landmarks, yaw, pitch, roll, prevCenter);
   } catch (err) {
-    console.error("🚨 ONNX Inference failed:", err);
+    console.error("ONNX Inference failed:", err);
   }
 
   canvasCtx.restore();

@@ -64,14 +64,14 @@ export function visualizeAxesOnFace(ctx, landmarks, yaw, pitch, roll, prevCenter
     
    
     ctx.font = "16px Roboto, sans-serif";
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "black";
-    ctx.fillStyle = "#00FFFF";  // Bright yellow
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "black";  // Bright yellow
     
     const texts = [
         `Yaw: ${(-yaw * 180 / Math.PI).toFixed(2)}`,
         `Pitch: ${(pitch * 180 / Math.PI).toFixed(2)}`,
-        `Roll: ${(roll * 180 / Math.PI).toFixed(2)}`
+        `Roll: ${(-roll * 180 / Math.PI).toFixed(2)}`
     ];
     
     texts.forEach((text, i) => {
